@@ -47,11 +47,16 @@ Legend: ✅ done · ⏳ in progress · ☐ todo.
 - E-11 ✅ Shared layout + multi-route registration.
 
 ## Epic F — Verification & packaging (Phase 4)
-- F-01 ⏳ `py_compile` + `ruff` clean across all modules.
-- F-02 ☐ Unit tests asserting tag/library/props per component.
-- F-03 ☐ Compile demo with Reflex (`reflex export` dry run).
-- F-04 ☐ GitHub Actions CI (lint + compile + tests).
-- F-05 ☐ Build via `reflex component` and publish to PyPI.
+- F-01 ✅ `py_compile` + `ruff` clean across all modules (whole repo passes).
+- F-02 ✅ Unit tests asserting tag/library/props per component (`tests/test_catalog.py`,
+  114 parametrized cases covering every catalog row + prop surfaces).
+- F-03 ✅ Demo app imports and registers all 9 scene routes
+  (`tests/test_quality_gates.py::test_demo_app_imports_with_nine_routes`). A full
+  `reflex export` additionally needs Node/bun + network to build the frontend.
+- F-04 ✅ GitHub Actions CI: `lint-and-test` (ruff + py_compile + pytest, py3.10–3.12)
+  and a `package` job (`python -m build` + `twine check`).
+- F-05 ⏳ Distribution **build validated**: `python -m build` produces wheel + sdist
+  and `twine check` passes. PyPI upload itself remains a manual, credentialed step.
 
 ## Epic G — Documentation
 - G-01 ✅ SDD artifacts (this directory).
@@ -78,6 +83,6 @@ Legend: ✅ done · ⏳ in progress · ☐ todo.
 | C drei | 6 | 6 |
 | D Public API | 2 | 2 |
 | E Demo | 11 | 11 |
-| F Verify/Package | 0 | 5 |
+| F Verify/Package | 4 | 5 |
 | G Docs | 4 | 5 |
 | H Post-v0.1 | 0 | 5 |

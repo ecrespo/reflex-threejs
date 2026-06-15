@@ -33,6 +33,7 @@ SCENE_HEIGHT = "70vh"
 # Scenes
 # ---------------------------------------------------------------------------
 def scene_hello() -> rx.Component:
+    """Hello Cube: a lit, orbitable cube — the canonical 3D scene."""
     return three.canvas(
         three.color(attach="background", args=["#0b1020"]),
         three.ambient_light(intensity=0.5),
@@ -47,6 +48,7 @@ def scene_hello() -> rx.Component:
 
 
 def scene_geometries() -> rx.Component:
+    """Geometry Gallery: a row of three.js built-in geometries."""
     specs = [
         (three.box_geometry(args=[1, 1, 1]), -4.5),
         (three.sphere_geometry(args=[0.7, 32, 32]), -3),
@@ -74,6 +76,7 @@ def scene_geometries() -> rx.Component:
 
 
 def scene_materials() -> rx.Component:
+    """Materials: one sphere rendered with several material types."""
     mats = [
         (three.mesh_standard_material(color="#e11d48", metalness=0.1, roughness=0.2), -4.5),
         (three.mesh_physical_material(color="#22d3ee", clearcoat=1.0, roughness=0.1), -2.25),
@@ -98,6 +101,7 @@ def scene_materials() -> rx.Component:
 
 
 def scene_lights() -> rx.Component:
+    """Lights: ambient, directional, point and spot lights with shadows."""
     return three.canvas(
         three.color(attach="background", args=["#05070d"]),
         three.ambient_light(intensity=0.15),
@@ -125,6 +129,7 @@ def scene_lights() -> rx.Component:
 
 
 def scene_interactive() -> rx.Component:
+    """Interactive: click to recolor and hover to scale, driven by state."""
     scale = rx.cond(DemoState.hovered, [1.3, 1.3, 1.3], [1.0, 1.0, 1.0])
     return three.canvas(
         three.color(attach="background", args=["#0b1020"]),
@@ -144,6 +149,7 @@ def scene_interactive() -> rx.Component:
 
 
 def scene_particles() -> rx.Component:
+    """Particles: a points cloud built from a buffer geometry."""
     # 2000 points scattered in a cube via a buffer attribute.
     import random
 
@@ -171,6 +177,7 @@ def scene_particles() -> rx.Component:
 
 
 def scene_staging() -> rx.Component:
+    """Staging & drei: Stage, ContactShadows and an animated distort material."""
     return three.canvas(
         three.drei.stage(
             three.mesh(
@@ -192,6 +199,7 @@ def scene_staging() -> rx.Component:
 
 
 def scene_text() -> rx.Component:
+    """3D Text: SDF text floating in the scene via drei Text and Float."""
     return three.canvas(
         three.color(attach="background", args=["#0b1020"]),
         three.ambient_light(intensity=0.7),
@@ -214,6 +222,7 @@ def scene_text() -> rx.Component:
 
 
 def scene_space() -> rx.Component:
+    """Space: a procedural star field around an emissive sphere."""
     return three.canvas(
         three.color(attach="background", args=["#01010a"]),
         three.drei.stars(radius=80, depth=50, count=6000, factor=4, fade=True, speed=1),
@@ -247,6 +256,7 @@ SCENES = {
 # Layout
 # ---------------------------------------------------------------------------
 def sidebar_link(slug: str, title: str, desc: str) -> rx.Component:
+    """Render one navigation link in the sidebar."""
     return rx.link(
         rx.box(
             rx.text(title, weight="bold", size="2"),
@@ -264,6 +274,7 @@ def sidebar_link(slug: str, title: str, desc: str) -> rx.Component:
 
 
 def layout(slug: str, scene: rx.Component) -> rx.Component:
+    """Wrap a scene in the shared sidebar + heading layout."""
     current = next((t for s, t, _ in EXAMPLES if s == slug), "Demo")
     return rx.hstack(
         rx.vstack(

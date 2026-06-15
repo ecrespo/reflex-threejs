@@ -53,8 +53,10 @@ class Canvas(NoSSRComponent):
     # Whether the canvas should resize to fit its parent.
     resize: Var[dict[str, Any]]
 
-    # Inline style; defaults to fill the parent container.
-    style: Var[dict[str, Any]]
+    # NOTE: ``style`` is inherited from ``rx.Component``; do not redeclare it.
+    # Redeclaring it drops the inherited default and breaks Reflex's style
+    # merge (``**None``). The ``create`` override below sets the fill-parent
+    # default instead.
 
     # Pointer events.
     on_pointer_missed: rx.EventHandler[rx.event.no_args_event_spec]

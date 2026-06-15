@@ -13,7 +13,6 @@ authors = [{ name = "Ernesto Crespo", email = "ecrespo@gmail.com" }]
 keywords = ["reflex", "threejs", "three", "react-three-fiber", "drei", "3d", "webgl"]
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Framework :: Reflex",
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Topic :: Multimedia :: Graphics :: 3D Rendering",
@@ -26,7 +25,13 @@ Repository = "https://github.com/ecrespo/reflex-threejs"
 Issues = "https://github.com/ecrespo/reflex-threejs/issues"
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0", "ruff>=0.5", "build>=1.0"]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+    "build>=1.0",
+    "twine>=5.0",
+    "trove-classifiers>=2024.1.1",
+]
 
 [tool.setuptools.packages.find]
 where = ["custom_components"]
@@ -41,3 +46,15 @@ ignore = ["D203", "D213"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+# Test functions document themselves through their names and assertions; the
+# pydocstyle rules add noise without value in the suite.
+"tests/**" = ["D100", "D101", "D102", "D103", "D104"]
+
+[tool.pytest.ini_options]
+# The component package lives under ``custom_components`` (see
+# ``[tool.setuptools.packages.find]``). Putting it on the path lets the suite
+# run without an editable install, both locally and in CI.
+pythonpath = ["custom_components"]
+testpaths = ["tests"]

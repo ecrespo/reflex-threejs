@@ -343,7 +343,6 @@ text_3d = Text3D.create
 html = Html.create
 billboard = Billboard.create
 float_ = Float.create
-float_ = Float.create
 # `float` shadows the builtin only at module scope and only after all class
 # bodies (which use `Var[float]`) are defined, so it is safe and ergonomic.
 float = Float.create  # noqa: A001

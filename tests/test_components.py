@@ -27,6 +27,27 @@ def test_canvas_is_nossr_with_library():
     assert Canvas.tag == "Canvas"
 
 
+def test_canvas_creates_and_defaults_to_fill_parent():
+    # RF-001: Canvas instantiates and defaults to width/height 100%.
+    # Style values compile to Reflex Vars, so compare their rendered form.
+    cmp = three.canvas()
+    assert str(cmp.style["width"]) == '"100%"'
+    assert str(cmp.style["height"]) == '"100%"'
+
+
+def test_canvas_accepts_root_props():
+    # RF-001: camera/shadows/dpr/gl/frameloop/orthographic are accepted.
+    cmp = three.canvas(
+        camera={"position": [0, 0, 5], "fov": 75},
+        shadows=True,
+        dpr=[1, 2],
+        gl={"antialias": True},
+        frameloop="demand",
+        orthographic=True,
+    )
+    assert cmp.tag == "Canvas"
+
+
 def test_host_element_has_no_library():
     cmp = three.mesh()
     assert isinstance(cmp, ThreeElement)

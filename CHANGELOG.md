@@ -15,6 +15,18 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   HTML overlay, and declarative GLTF loading.
 - `three` namespace for ergonomic `rx`-style access.
 - Demo application with multiple interactive examples.
+- Verification suite (Phase 4): 132 tests — full catalog contract coverage
+  (`tests/test_catalog.py`) plus quality gates for ruff, byte-compile, demo
+  routing and packaging metadata (`tests/test_quality_gates.py`).
+- CI `package` job building the wheel/sdist and running `twine check`.
+
+### Fixed
+- `Canvas` no longer crashes on Reflex ≥ 0.9: it had redeclared the inherited
+  `style` prop, dropping its default and breaking the style merge.
+- Removed the invalid `Framework :: Reflex` trove classifier that blocked
+  `python -m build`.
+- Lint clean-up: dropped unused imports, sorted import blocks, and added the
+  missing docstrings flagged by `ruff` across the package and demo.
 
 ## [0.1.0] - 2026-06-14
 - Project bootstrapped on the `main` branch.
