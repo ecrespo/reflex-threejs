@@ -1,0 +1,4 @@
+# Install the local reflex-threejs package in editable mode together with the
+# demo. Run from this directory:  pip install -r requirements.txt
+reflex>=0.7.0
+-e ..

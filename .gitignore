@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Reflex
+.web/
+*.db
+.states/
+reflex.db
+assets/external/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Test / coverage
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
