@@ -147,6 +147,17 @@ def test_drei_tag_and_library(factory_name: str, tag: str) -> None:
     assert "@react-three/drei" in cmp.library
 
 
+@pytest.mark.parametrize("factory_name,tag", HOST_ELEMENTS, ids=[t for _, t in HOST_ELEMENTS])
+def test_host_element_compiles_to_string_intrinsic(factory_name: str, tag: str) -> None:
+    # A host element must compile to jsx("mesh", ...) — a string intrinsic the
+    # R3F reconciler resolves — NOT a bare identifier jsx(mesh, ...), which React
+    # treats as an undefined component (ReferenceError at runtime).
+    rendered = getattr(three, factory_name)()._render()
+    assert rendered.name == f'"{tag}"', (
+        f"{factory_name} compiles to {rendered.name!r}; expected the quoted string tag"
+    )
+
+
 def test_no_duplicate_host_tags() -> None:
     # Each catalog row maps to a distinct tag (the data model has no collisions).
     tags = [tag for _, tag in HOST_ELEMENTS]

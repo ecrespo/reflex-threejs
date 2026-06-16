@@ -94,6 +94,13 @@ one module per element family, verify by compiling the demo app."
 upload is the remaining manual, credentialed step.
 
 **Bugs found and fixed during verification (TDD):**
+- **Host elements didn't render** (runtime `ReferenceError: <tag> is not defined`).
+  On Reflex's React compiler a `library=None` component emits its tag as a bare
+  identifier (`jsx(mesh, …)`) unless `_is_tag_in_global_scope` is set, so every
+  host element compiled to an undefined component and the scenes crashed in the
+  browser. Set `_is_tag_in_global_scope = True` on `ThreeElement` so tags emit as
+  string intrinsics (`jsx("mesh", …)`) that the R3F reconciler resolves. Covered
+  by `test_host_element_compiles_to_string_intrinsic` (60 cases).
 - `Canvas` redeclared the inherited `style` prop, which dropped its default and
   crashed component construction on Reflex ≥ 0.9 (`'NoneType' is not a mapping`).
   Removed the redeclaration; the `create` override keeps the fill-parent default.

@@ -22,7 +22,7 @@ The distinction matters for how Reflex compiles the component:
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, ClassVar
 
 import reflex as rx
 from reflex.vars import Var
@@ -66,6 +66,13 @@ class ThreeElement(rx.Component):
 
     # No npm import: R3F resolves these intrinsic tags at runtime.
     library = None  # type: ignore[assignment]
+
+    # Emit the lowercase tag as a STRING intrinsic (``jsx("mesh", ...)``) rather
+    # than a bare identifier (``jsx(mesh, ...)``). Without this, Reflex's React
+    # compiler treats the tag as an (unimported, undefined) component reference,
+    # crashing at runtime with ``ReferenceError: mesh is not defined``. R3F's
+    # reconciler resolves the string intrinsic to the three.js object.
+    _is_tag_in_global_scope: ClassVar[bool] = True
 
     # --- Transform props shared by every Object3D-like element ---------------
     # World-space position [x, y, z].

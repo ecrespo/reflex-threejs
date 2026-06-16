@@ -21,6 +21,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - CI `package` job building the wheel/sdist and running `twine check`.
 
 ### Fixed
+- Host elements now actually render. On Reflex's React compiler they were emitted
+  as bare identifiers (`jsx(mesh, …)`) instead of string intrinsics
+  (`jsx("mesh", …)`), so every scene crashed in the browser with
+  `ReferenceError: <tag> is not defined`. Fixed by marking `ThreeElement` with
+  `_is_tag_in_global_scope`.
 - `Canvas` no longer crashes on Reflex ≥ 0.9: it had redeclared the inherited
   `style` prop, dropping its default and breaking the style merge.
 - Removed the invalid `Framework :: Reflex` trove classifier that blocked
