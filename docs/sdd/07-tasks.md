@@ -55,11 +55,10 @@ Legend: ✅ done · ⏳ in progress · ☐ todo.
   `reflex export` additionally needs Node/bun + network to build the frontend.
 - F-04 ✅ GitHub Actions CI: `lint-and-test` (ruff + py_compile + pytest, py3.10–3.12)
   and a `package` job (`python -m build` + `twine check`).
-- F-05 ⏳ Distribution **build validated** as a Reflex custom component: `.pyi` type
-  stubs + `py.typed` generated (`scripts/gen_pyi.py`, mirrors `reflex component
-  build`) and shipped in the wheel; `python -m build` + `twine check` pass; CI
-  rebuilds and diffs the stubs. PyPI upload itself remains a manual, credentialed
-  step (`make publish` / `twine upload`).
+- F-05 ✅ **Published to PyPI** as a Reflex custom component:
+  <https://pypi.org/project/reflex-threejs/0.1.0/>. Built with `uv run reflex
+  component build` (exit 0, `twine check` passing); ships `.pyi` stubs + `py.typed`.
+  `pip install reflex-threejs` / `uv add reflex-threejs` works.
 
 ## Epic G — Documentation
 - G-01 ✅ SDD artifacts (this directory).
@@ -86,6 +85,6 @@ Legend: ✅ done · ⏳ in progress · ☐ todo.
 | C drei | 6 | 6 |
 | D Public API | 2 | 2 |
 | E Demo | 11 | 11 |
-| F Verify/Package | 4 | 5 |
+| F Verify/Package | 5 | 5 |
 | G Docs | 4 | 5 |
 | H Post-v0.1 | 0 | 5 |

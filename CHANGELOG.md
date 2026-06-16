@@ -6,6 +6,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-06-15
+
+First release on PyPI: <https://pypi.org/project/reflex-threejs/0.1.0/>.
+Install with `pip install reflex-threejs` or `uv add reflex-threejs`.
+
 ### Added
 - Initial project scaffold, SDD artifacts and base documentation.
 - Core component library: `Canvas` (NoSSR), Object3D host elements
@@ -37,5 +42,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Lint clean-up: dropped unused imports, sorted import blocks, and added the
   missing docstrings flagged by `ruff` across the package and demo.
 
-## [0.1.0] - 2026-06-14
+## [0.1.0-scaffold] - 2026-06-14
 - Project bootstrapped on the `main` branch.

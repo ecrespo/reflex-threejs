@@ -88,10 +88,10 @@ one module per element family, verify by compiling the demo app."
 | F4-02 | Unit tests: component spec assertions | 1d | F2-07 | ✅ |
 | F4-03 | Demo imports + registers 9 routes (`reflex export` needs Node) | 0.5d | F3-* | ✅ |
 | F4-04 | GitHub Actions CI (lint+test matrix + package job) | 0.3d | F4-01 | ✅ |
-| F4-05 | `python -m build` + `twine check` pass; PyPI publish pending | 0.5d | F4-02 | ⏳ |
+| F4-05 | `reflex component build` + `twine` publish to PyPI | 0.5d | F4-02 | ✅ |
 
-**Done criteria:** CI green; distribution builds and passes `twine check`. PyPI
-upload is the remaining manual, credentialed step.
+**Done criteria:** CI green; distribution builds and passes `twine check`;
+**published to PyPI** (<https://pypi.org/project/reflex-threejs/0.1.0/>).
 
 **Bugs found and fixed during verification (TDD):**
 - **Host elements didn't render** (runtime `ReferenceError: <tag> is not defined`).

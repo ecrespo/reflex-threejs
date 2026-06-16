@@ -41,9 +41,11 @@ Phase 0: Spec & Scaffold ──▶ Phase 1: Core + Demo ──▶ Phase 2: Packa
   sibling demo, `reflex-custom-components` keyword).
 - ✅ Build with `reflex component` tooling / `make build`; `.pyi` stubs + `py.typed`
   generated and shipped in the wheel.
-- ☐ Publish `reflex-threejs` to PyPI (manual, credentialed step).
+- ✅ Published `reflex-threejs` 0.1.0 to PyPI
+  (<https://pypi.org/project/reflex-threejs/0.1.0/>); `pip install reflex-threejs`
+  works.
 - ☐ Versioned docs site / examples gallery.
-- **Done when:** `pip install reflex-threejs` works; PyPI page live.
+- **Done when:** `pip install reflex-threejs` works; PyPI page live. ✅
 
 ## Phase 3 — Post-processing & Effects
 **Goal:** cinematic rendering.
