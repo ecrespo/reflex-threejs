@@ -55,8 +55,11 @@ Legend: ✅ done · ⏳ in progress · ☐ todo.
   `reflex export` additionally needs Node/bun + network to build the frontend.
 - F-04 ✅ GitHub Actions CI: `lint-and-test` (ruff + py_compile + pytest, py3.10–3.12)
   and a `package` job (`python -m build` + `twine check`).
-- F-05 ⏳ Distribution **build validated**: `python -m build` produces wheel + sdist
-  and `twine check` passes. PyPI upload itself remains a manual, credentialed step.
+- F-05 ⏳ Distribution **build validated** as a Reflex custom component: `.pyi` type
+  stubs + `py.typed` generated (`scripts/gen_pyi.py`, mirrors `reflex component
+  build`) and shipped in the wheel; `python -m build` + `twine check` pass; CI
+  rebuilds and diffs the stubs. PyPI upload itself remains a manual, credentialed
+  step (`make publish` / `twine upload`).
 
 ## Epic G — Documentation
 - G-01 ✅ SDD artifacts (this directory).

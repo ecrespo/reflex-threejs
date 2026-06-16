@@ -15,10 +15,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   HTML overlay, and declarative GLTF loading.
 - `three` namespace for ergonomic `rx`-style access.
 - Demo application with multiple interactive examples.
-- Verification suite (Phase 4): 132 tests — full catalog contract coverage
+- Verification suite (Phase 4): 194 tests — full catalog contract coverage
   (`tests/test_catalog.py`) plus quality gates for ruff, byte-compile, demo
   routing and packaging metadata (`tests/test_quality_gates.py`).
 - CI `package` job building the wheel/sdist and running `twine check`.
+- Packaged as a standard Reflex custom component: generated `.pyi` type stubs and
+  a PEP 561 `py.typed` marker (shipped in the wheel), `scripts/gen_pyi.py` to
+  regenerate them, a `Makefile` (`install`/`stubs`/`check`/`build`/`publish`), and
+  the `reflex-custom-components` keyword. CI rebuilds and diffs the stubs.
 
 ### Fixed
 - Host elements now actually render. On Reflex's React compiler they were emitted

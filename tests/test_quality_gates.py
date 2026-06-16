@@ -43,6 +43,49 @@ def test_package_byte_compiles() -> None:
     assert ok, "py_compile failed for one or more component modules"
 
 
+def test_package_ships_type_stubs_and_py_typed() -> None:
+    """The package is a typed Reflex custom component: stubs + PEP 561 marker.
+
+    ``reflex component build`` generates a ``.pyi`` stub for every module that
+    defines components, plus a ``py.typed`` marker so type checkers use them.
+    """
+    pkg = PACKAGE_DIR
+    assert (pkg / "py.typed").exists(), "missing PEP 561 py.typed marker"
+
+    expected_stubs = {
+        "base.pyi",
+        "cameras.pyi",
+        "canvas.pyi",
+        "drei.pyi",
+        "geometries.pyi",
+        "lights.pyi",
+        "materials.pyi",
+        "objects.pyi",
+    }
+    present = {p.name for p in pkg.glob("*.pyi")}
+    missing = expected_stubs - present
+    assert not missing, f"missing type stubs (run scripts/gen_pyi.py): {missing}"
+
+
+def test_pyproject_is_a_reflex_custom_component() -> None:
+    """Check pyproject follows the Reflex custom-component conventions."""
+    import tomllib
+
+    with open(REPO_ROOT / "pyproject.toml", "rb") as fh:
+        pyproject = tomllib.load(fh)
+
+    project = pyproject["project"]
+    assert project["name"] == "reflex-threejs", "package name must be reflex-<library>"
+    assert "reflex-custom-components" in project["keywords"], (
+        "add the 'reflex-custom-components' keyword for gallery/PyPI discoverability"
+    )
+    assert any(dep.startswith("reflex") for dep in project["dependencies"])
+    # Component source lives under custom_components/ (Reflex convention).
+    assert pyproject["tool"]["setuptools"]["packages"]["find"]["where"] == [
+        "custom_components"
+    ]
+
+
 def test_pyproject_classifiers_are_valid_trove() -> None:
     """All declared classifiers are real PyPI trove classifiers (F-05).
 
