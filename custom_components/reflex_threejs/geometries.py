@@ -100,7 +100,7 @@ class TetrahedronGeometry(_Geometry):
 
 
 class CapsuleGeometry(_Geometry):
-    """``<capsuleGeometry>`` -- CapsuleGeometry(radius, length, capSeg, radialSeg)."""
+    """``<capsuleGeometry>`` -- CapsuleGeometry(radius, height, capSeg, radialSeg, heightSeg)."""
 
     tag = "capsuleGeometry"
 

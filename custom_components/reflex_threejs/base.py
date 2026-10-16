@@ -30,9 +30,11 @@ from reflex.vars import Var
 # Pinned npm versions. Keep these in sync with docs/sdd and pyproject.toml.
 # React Three Fiber v9 targets React 19 (Reflex >= 0.7). For Reflex apps still
 # on React 18, pin fiber@8 / drei@9 instead (see docs/guides/compatibility.md).
-FIBER_VERSION = "@react-three/fiber@^9.0.0"
-DREI_VERSION = "@react-three/drei@^10.0.0"
-THREE_VERSION = "three@^0.169.0"
+# three.js ships breaking changes in minor releases (0.x), so the caret only
+# allows patch updates within the pinned minor: bump it deliberately.
+FIBER_VERSION = "@react-three/fiber@^9.8.2"
+DREI_VERSION = "@react-three/drei@^10.7.9"
+THREE_VERSION = "three@^0.186.1"
 
 
 # ---------------------------------------------------------------------------
