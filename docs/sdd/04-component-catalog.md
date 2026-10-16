@@ -64,7 +64,7 @@ All emit lowercase `*Geometry` tags; tune via `args` (constructor params).
 | `icosahedron_geometry` | `icosahedronGeometry` | radius, detail |
 | `octahedron_geometry` | `octahedronGeometry` | radius, detail |
 | `tetrahedron_geometry` | `tetrahedronGeometry` | radius, detail |
-| `capsule_geometry` | `capsuleGeometry` | radius, length, capSeg, radialSeg |
+| `capsule_geometry` | `capsuleGeometry` | radius, height, capSeg, radialSeg, heightSeg |
 | `lathe_geometry` | `latheGeometry` | points, segments, phiStart, phiLength |
 | `tube_geometry` | `tubeGeometry` | path, tubularSeg, radius, radialSeg, closed |
 | `extrude_geometry` | `extrudeGeometry` | shapes, options |
