@@ -22,7 +22,7 @@ The distinction matters for how Reflex compiles the component:
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, ClassVar
 
 import reflex as rx
 from reflex.vars import Var
@@ -30,9 +30,11 @@ from reflex.vars import Var
 # Pinned npm versions. Keep these in sync with docs/sdd and pyproject.toml.
 # React Three Fiber v9 targets React 19 (Reflex >= 0.7). For Reflex apps still
 # on React 18, pin fiber@8 / drei@9 instead (see docs/guides/compatibility.md).
-FIBER_VERSION = "@react-three/fiber@^9.0.0"
-DREI_VERSION = "@react-three/drei@^10.0.0"
-THREE_VERSION = "three@^0.169.0"
+# three.js ships breaking changes in minor releases (0.x), so the caret only
+# allows patch updates within the pinned minor: bump it deliberately.
+FIBER_VERSION = "@react-three/fiber@^9.8.2"
+DREI_VERSION = "@react-three/drei@^10.7.9"
+THREE_VERSION = "three@^0.186.1"
 
 
 # ---------------------------------------------------------------------------
@@ -66,6 +68,13 @@ class ThreeElement(rx.Component):
 
     # No npm import: R3F resolves these intrinsic tags at runtime.
     library = None  # type: ignore[assignment]
+
+    # Emit the lowercase tag as a STRING intrinsic (``jsx("mesh", ...)``) rather
+    # than a bare identifier (``jsx(mesh, ...)``). Without this, Reflex's React
+    # compiler treats the tag as an (unimported, undefined) component reference,
+    # crashing at runtime with ``ReferenceError: mesh is not defined``. R3F's
+    # reconciler resolves the string intrinsic to the three.js object.
+    _is_tag_in_global_scope: ClassVar[bool] = True
 
     # --- Transform props shared by every Object3D-like element ---------------
     # World-space position [x, y, z].

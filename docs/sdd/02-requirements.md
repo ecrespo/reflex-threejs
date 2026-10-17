@@ -81,7 +81,8 @@ criteria.
 ### Compatibility
 - Primary target: Reflex ≥ 0.7 → React 19 → `@react-three/fiber@^9`, `@react-three/drei@^10`.
 - Fallback documented for Reflex on React 18 → fiber `^8`, drei `^9`.
-- `three >= 0.169` (no hard upper pin; R3F is renderer-version tolerant).
+- `three >= 0.186` (pinned `^0.186.1`; R3F is renderer-version tolerant, but
+  three.js minors can break, so bumps are deliberate).
 
 ### Maintainability
 - One module per element family (`geometries.py`, `materials.py`, ...).

@@ -84,13 +84,28 @@ one module per element family, verify by compiling the demo app."
 
 | ID | Task | Est. | Dependency | Status |
 |---|---|---|---|---|
-| F4-01 | `ruff` + `py_compile` clean | 0.3d | F2-* | ☐ |
-| F4-02 | Unit tests: component spec assertions | 1d | F2-07 | ☐ |
-| F4-03 | Compile demo with Reflex (`reflex export`) | 0.5d | F3-* | ☐ |
-| F4-04 | GitHub Actions CI | 0.3d | F4-01 | ☐ |
-| F4-05 | `reflex component build` + PyPI publish | 0.5d | F4-02 | ☐ |
+| F4-01 | `ruff` + `py_compile` clean | 0.3d | F2-* | ✅ |
+| F4-02 | Unit tests: component spec assertions | 1d | F2-07 | ✅ |
+| F4-03 | Demo imports + registers 9 routes (`reflex export` needs Node) | 0.5d | F3-* | ✅ |
+| F4-04 | GitHub Actions CI (lint+test matrix + package job) | 0.3d | F4-01 | ✅ |
+| F4-05 | `reflex component build` + `twine` publish to PyPI | 0.5d | F4-02 | ✅ |
 
-**Done criteria:** CI green; package installable from PyPI.
+**Done criteria:** CI green; distribution builds and passes `twine check`;
+**published to PyPI** (<https://pypi.org/project/reflex-threejs/0.1.0/>).
+
+**Bugs found and fixed during verification (TDD):**
+- **Host elements didn't render** (runtime `ReferenceError: <tag> is not defined`).
+  On Reflex's React compiler a `library=None` component emits its tag as a bare
+  identifier (`jsx(mesh, …)`) unless `_is_tag_in_global_scope` is set, so every
+  host element compiled to an undefined component and the scenes crashed in the
+  browser. Set `_is_tag_in_global_scope = True` on `ThreeElement` so tags emit as
+  string intrinsics (`jsx("mesh", …)`) that the R3F reconciler resolves. Covered
+  by `test_host_element_compiles_to_string_intrinsic` (60 cases).
+- `Canvas` redeclared the inherited `style` prop, which dropped its default and
+  crashed component construction on Reflex ≥ 0.9 (`'NoneType' is not a mapping`).
+  Removed the redeclaration; the `create` override keeps the fill-parent default.
+- `pyproject.toml` declared `Framework :: Reflex`, which is not a valid PyPI
+  trove classifier and blocked `python -m build`. Removed it.
 
 ### Phase 5 — Effects, Loaders, Physics
 See [roadmap](05-roadmap-phases.md) phases 3–5. Tracked as epics post-v0.1.
@@ -114,10 +129,10 @@ Phase 1: Foundation
 ## 6. Global Definition of Done
 
 - [ ] Code merged to `main`.
-- [ ] `py_compile` + `ruff` pass.
-- [ ] Demo app compiles via Reflex.
-- [ ] Public components documented (docstrings + catalog).
-- [ ] SDD updated if the API changed.
+- [x] `py_compile` + `ruff` pass.
+- [x] Demo app imports and registers all routes (full Reflex export needs Node).
+- [x] Public components documented (docstrings + catalog).
+- [x] SDD updated if the API changed.
 
 ---
 

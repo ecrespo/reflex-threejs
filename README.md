@@ -8,7 +8,7 @@ renderer for [three.js](https://threejs.org)) and its helper library
 3D scenes — product viewers, data visualization, generative art, simulations —
 without writing a line of JavaScript.
 
-> Status: **alpha (v0.1.0)** — foundation, core components, demo app and full
+> Status: **alpha (v0.2.0)** — foundation, core components, demo app and full
 > [SDD](docs/sdd/00-overview.md) artifacts are in place. See the
 > [roadmap](docs/sdd/05-roadmap-phases.md).
 
@@ -132,17 +132,24 @@ drei helpers live under `three.drei.*` (common ones promoted to `three.*`).
 
 ```
 reflex-threejs/
-├── custom_components/reflex_threejs/   # the component library
+├── custom_components/reflex_threejs/   # the component library (Reflex convention)
 │   ├── base.py        canvas.py        objects.py
 │   ├── geometries.py  materials.py     lights.py
 │   ├── cameras.py     drei.py          namespace.py
+│   ├── *.pyi          py.typed         # generated type stubs + PEP 561 marker
 │   └── __init__.py
 ├── reflex_threejs_demo/                # runnable demo app
+├── tests/                              # contract + quality-gate tests
+├── scripts/gen_pyi.py                  # regenerate the .pyi stubs
 ├── docs/
 │   ├── sdd/                            # SDD artifacts
 │   └── guides/                         # usage & compatibility
-├── pyproject.toml   README.md   LICENSE   CHANGELOG.md
+├── Makefile  pyproject.toml  README.md  LICENSE  CHANGELOG.md
 ```
+
+This is the layout produced by `reflex component init` (package under
+`custom_components/`, a sibling demo app), so it builds and publishes with the
+standard Reflex custom-component tooling.
 
 ## How it works (in one paragraph)
 
@@ -150,15 +157,45 @@ reflex-threejs/
 the browser. Everything inside it — `<mesh>`, `<boxGeometry>`,
 `<meshStandardMaterial>`, `<ambientLight>` — are React Three Fiber *host
 elements*: lowercase intrinsic JSX tags resolved by R3F's reconciler at runtime,
-requiring no import. We model these as Reflex components with `library = None`, so
-Reflex emits the bare tag. drei helpers are real exported components, so they
-declare the `@react-three/drei` package and an explicit tag. See the
-[architecture doc](docs/sdd/03-architecture.md) for details.
+requiring no import. We model these as Reflex components with `library = None` and
+`_is_tag_in_global_scope = True`, so Reflex emits the tag as a string intrinsic
+(`jsx("mesh", …)`) rather than an undefined component reference. drei helpers are
+real exported components, so they declare the `@react-three/drei` package and an
+explicit tag. See the [architecture doc](docs/sdd/03-architecture.md) for details.
+
+## Building & publishing (Reflex custom component)
+
+`reflex-threejs` is a standard [Reflex custom component](https://reflex.dev/docs/custom-components/overview/):
+the package lives under `custom_components/`, ships `.pyi` type stubs and a
+`py.typed` marker, and builds with the usual tooling.
+
+```bash
+make install        # pip install -e ".[dev]"
+make check          # ruff + pytest
+make stubs          # regenerate .pyi stubs after changing any component props
+make build          # regenerate stubs, then build wheel + sdist, then twine check
+make publish        # upload to PyPI (needs credentials)
+```
+
+`make build` is the recommended path: it scopes stub generation to the package.
+The official `reflex component build` does the same two steps (stub generation +
+`python -m build`), but it recursively scans *every* top-level directory, so run
+it only from a clean checkout without local virtualenvs in the tree:
+
+```bash
+reflex component build      # produces dist/ with stubs
+python -m twine upload dist/*   # or: reflex component share
+```
+
+Bump `version` in `pyproject.toml` before publishing. The CI `package` job
+rebuilds the stubs, verifies the committed ones are current, and runs
+`twine check` on every push.
 
 ## Contributing
 
 Issues and PRs welcome. The design lives in [`docs/sdd`](docs/sdd/00-overview.md);
-please keep specs and code in sync (it's in the Definition of Done).
+please keep specs and code in sync (it's in the Definition of Done). After
+changing any component's props, run `make stubs` and commit the updated `.pyi`.
 
 ## License
 

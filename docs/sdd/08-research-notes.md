@@ -61,6 +61,9 @@ From the official Reflex docs (`reflex.dev/docs/wrapping-react/*`):
   `@react-three/drei` latest **10.7.x**. Fiber **v9 ↔ React 19**, fiber **v8 ↔
   React 18**. No hard three.js pin; requires `three >= 0.156` (we pin
   `^0.169`).
+- **Update (October 2026):** pins raised to `@react-three/fiber@^9.8.2`,
+  `@react-three/drei@^10.7.9` and `three@^0.186.1` (r169 → r186 migration
+  notes reviewed; no wrapped API removed).
 
 **Implication:** default to fiber v9 / drei v10 / React 19 (Reflex ≥ 0.7), with
 a documented v8/React-18 fallback.
