@@ -40,6 +40,7 @@ dev = [
     "build>=1.0",
     "twine>=5.0",
     "trove-classifiers>=2024.1.1",
+    "tomli>=2.0; python_version < '3.11'",
 ]
 
 [tool.setuptools.packages.find]

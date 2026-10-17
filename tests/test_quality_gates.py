@@ -20,6 +20,11 @@ from pathlib import Path
 
 import pytest
 
+if sys.version_info >= (3, 11):
+    import tomllib
+else:  # Python 3.10: tomllib is 3.11+, tomli is its backport (dev extra).
+    import tomli as tomllib
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PACKAGE_DIR = REPO_ROOT / "custom_components" / "reflex_threejs"
 
@@ -69,8 +74,6 @@ def test_package_ships_type_stubs_and_py_typed() -> None:
 
 def test_pyproject_is_a_reflex_custom_component() -> None:
     """Check pyproject follows the Reflex custom-component conventions."""
-    import tomllib
-
     with open(REPO_ROOT / "pyproject.toml", "rb") as fh:
         pyproject = tomllib.load(fh)
 
@@ -92,8 +95,6 @@ def test_pyproject_classifiers_are_valid_trove() -> None:
     setuptools rejects unknown classifiers at build time, so an invalid one
     silently blocks ``python -m build`` and the PyPI upload.
     """
-    import tomllib
-
     trove = pytest.importorskip("trove_classifiers")
 
     with open(REPO_ROOT / "pyproject.toml", "rb") as fh:
