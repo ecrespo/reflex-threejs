@@ -1137,6 +1137,7 @@ dev = [
     { name = "build" },
     { name = "pytest" },
     { name = "ruff" },
+    { name = "tomli", marker = "python_full_version < '3.11'" },
     { name = "trove-classifiers" },
     { name = "twine" },
 ]
@@ -1147,6 +1148,7 @@ requires-dist = [
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "reflex", specifier = ">=0.7.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.5" },
+    { name = "tomli", marker = "python_full_version < '3.11' and extra == 'dev'", specifier = ">=2.0" },
     { name = "trove-classifiers", marker = "extra == 'dev'", specifier = ">=2024.1.1" },
     { name = "twine", marker = "extra == 'dev'", specifier = ">=5.0" },
 ]
