@@ -6,6 +6,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-16
+
+three.js stable baseline moves to r186. Release on PyPI:
+<https://pypi.org/project/reflex-threejs/0.2.0/>.
+
 ### Changed
 - Bumped npm pins in `base.py`: `three` `^0.169.0` → `^0.186.1`,
   `@react-three/fiber` `^9.0.0` → `^9.8.2`, `@react-three/drei` `^10.0.0` →

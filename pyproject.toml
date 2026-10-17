@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "reflex-threejs"
-version = "0.1.0"
+version = "0.2.0"
 description = "React Three Fiber and drei (three.js) wrapped as Reflex components."
 readme = "README.md"
 license = { text = "MIT" }

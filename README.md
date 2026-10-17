@@ -8,7 +8,7 @@ renderer for [three.js](https://threejs.org)) and its helper library
 3D scenes — product viewers, data visualization, generative art, simulations —
 without writing a line of JavaScript.
 
-> Status: **alpha (v0.1.0)** — foundation, core components, demo app and full
+> Status: **alpha (v0.2.0)** — foundation, core components, demo app and full
 > [SDD](docs/sdd/00-overview.md) artifacts are in place. See the
 > [roadmap](docs/sdd/05-roadmap-phases.md).
 
