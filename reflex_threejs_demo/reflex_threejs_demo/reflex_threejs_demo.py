@@ -123,7 +123,9 @@ def scene_lights() -> rx.Component:
             receive_shadow=True,
         ),
         three.orbit_controls(),
-        shadows=True,
+        # three r182+ deprecates PCFSoftShadowMap (R3F's `shadows=True`); the
+        # default PCFShadowMap is now soft, so request it directly.
+        shadows="percentage",
         camera={"position": [0, 2, 7], "fov": 50},
     )
 
@@ -161,13 +163,8 @@ def scene_particles() -> rx.Component:
         three.color(attach="background", args=["#05070d"]),
         three.points(
             three.buffer_geometry(
-                three.buffer_attribute(
-                    attach="attributes-position",
-                    args=[positions, 3],
-                    count=len(positions) // 3,
-                    item_size=3,
-                    array=positions,
-                ),
+                # args=[array, itemSize]; the flat list compiles to a Float32Array.
+                three.buffer_attribute(attach="attributes-position", args=[positions, 3]),
             ),
             three.points_material(color="#22d3ee", size=0.05, size_attenuation=True),
         ),
@@ -193,7 +190,9 @@ def scene_staging() -> rx.Component:
             position=[0, -1.4, 0], opacity=0.6, scale=12, blur=2.4, far=4.5
         ),
         three.orbit_controls(auto_rotate=True),
-        shadows=True,
+        # three r182+ deprecates PCFSoftShadowMap (R3F's `shadows=True`); the
+        # default PCFShadowMap is now soft, so request it directly.
+        shadows="percentage",
         camera={"position": [0, 1.5, 6], "fov": 50},
     )
 
