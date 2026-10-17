@@ -42,6 +42,10 @@ built, or fork and pin. A future release will expose these as configuration.
   `PCFSoftShadowMap has been removed. Using PCFShadowMap instead.` warning and
   falls back automatically. Pass `shadows="percentage"` to request
   `PCFShadowMap` directly and silence it.
+- fiber 9.8.2 still drives its frame loop with `THREE.Clock`, which three
+  r183+ deprecates in favour of `THREE.Timer`, so every page logs a one-time
+  `THREE.Clock: This module has been deprecated` warning. It is harmless and
+  will go away once R3F switches to `Timer`.
 - three r176 renamed `CapsuleGeometry`'s second constructor argument from
   `length` to `height` (positional order unchanged) and added a fifth
   `heightSegments` argument.

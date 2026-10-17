@@ -13,6 +13,23 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `PCFSoftShadowMap` deprecation warning and falls back to the (now soft)
   `PCFShadowMap`; use `shadows="percentage"` to avoid it. `capsule_geometry`
   docs updated for three r176 (`length` → `height`, new `heightSegments`).
+- Demo: `/lights` and `/staging` use `shadows="percentage"` (no deprecation
+  warning on three r186); `reflex.lock` regenerated against three 0.186.1,
+  fiber 9.8.2 and drei 10.7.9. `/particles` drops the redundant `array`/`count`/
+  `item_size` props.
+
+### Fixed
+- `buffer_attribute` now wraps `args[0]` and `array` (literal lists or state
+  Vars) in `new Float32Array(...)`. three.js throws `BufferAttribute: array
+  should be a Typed Array` on plain arrays, which left the demo `/particles`
+  scene blank (also on three 0.169).
+- `scripts/gen_pyi.py` runs the stub generator from `custom_components`, so it
+  imports `reflex_threejs.*` and actually rewrites the stubs. Before, every
+  import failed silently and the CI "stubs up to date" gate passed vacuously.
+- `drei.float` is served by a module `__getattr__` instead of rebinding the
+  builtin `float` in `drei.py`, which made `float | list[float]` annotations
+  resolve to a method and crashed stub generation intermittently (depending on
+  the hash seed). `three.drei.float(...)` keeps working.
 
 ## [0.1.0] - 2026-06-15
 

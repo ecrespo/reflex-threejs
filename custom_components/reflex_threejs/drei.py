@@ -7,7 +7,7 @@ host elements, these are real exported React components, so each declares the
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import reflex as rx
 from reflex.vars import Var
@@ -343,9 +343,6 @@ text_3d = Text3D.create
 html = Html.create
 billboard = Billboard.create
 float_ = Float.create
-# `float` shadows the builtin only at module scope and only after all class
-# bodies (which use `Var[float]`) are defined, so it is safe and ergonomic.
-float = Float.create  # noqa: A001
 center = Center.create
 bounds = Bounds.create
 edges = Edges.create
@@ -355,3 +352,19 @@ gradient_texture = GradientTexture.create
 mesh_distort_material = MeshDistortMaterial.create
 mesh_wobble_material = MeshWobbleMaterial.create
 gltf = Gltf.create
+
+if TYPE_CHECKING:
+    # Static view of the runtime ``__getattr__`` alias below.
+    float = Float.create  # noqa: A001
+
+
+def __getattr__(name: str) -> Any:
+    """Expose ``drei.float`` without rebinding the builtin in module globals.
+
+    A module-level ``float = Float.create`` would make every
+    ``float | list[float]`` annotation here resolve ``float`` to that method
+    (``typing.get_type_hints`` and the ``.pyi`` generator then crash).
+    """
+    if name == "float":
+        return float_
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

@@ -1983,45 +1983,12 @@ class BufferAttribute(ThreeElement):
         on_unmount: Optional[EventType[()]] = None,
         **props,
     ) -> "BufferAttribute":
-        """Create the component.
+        """Create the attribute, wrapping its data array in a ``Float32Array``.
 
-        Args:
-            *children: The children of the component.
-            attach: The slot to attach to, e.g. "attributes-position" or "attributes-color".
-            count: ``args`` = [Float32Array, itemSize].
-            array: no description
-            item_size: no description
-            position: no description
-            rotation: no description
-            scale: no description
-            visible: no description
-            args: no description
-            style: The style of the component.
-            key: A unique key for the component.
-            id: The id for the component.
-            ref: The Var to pass as the ref to the component.
-            class_name: The class name for the component.
-            custom_attrs: Attributes passed directly to the component.
-            on_focus: Fired when the element (or some element inside of it) receives focus. For example, it is called when the user clicks on a text input.
-            on_blur: Fired when focus has left the element (or left some element inside of it). For example, it is called when the user clicks outside of a focused text input.
-            on_click: Fired when the user clicks on an element. For example, it's called when the user clicks on a button.
-            on_context_menu: Fired when the user right-clicks on an element.
-            on_double_click: Fired when the user double-clicks on an element.
-            on_mouse_down: Fired when the user presses a mouse button on an element.
-            on_mouse_enter: Fired when the mouse pointer enters the element.
-            on_mouse_leave: Fired when the mouse pointer leaves the element.
-            on_mouse_move: Fired when the mouse pointer moves over the element.
-            on_mouse_out: Fired when the mouse pointer moves out of the element.
-            on_mouse_over: Fired when the mouse pointer moves onto the element.
-            on_mouse_up: Fired when the user releases a mouse button on an element.
-            on_scroll: Fired when the user scrolls the element.
-            on_scroll_end: Fired when scrolling ends on the element.
-            on_mount: Fired when the component is mounted to the page.
-            on_unmount: Fired when the component is removed from the page. Only called during navigation, not on page refresh.
-            **props: The props of the component.
-
-        Returns:
-            The component.
+        three.js ``BufferAttribute`` throws on plain arrays ("array should be a
+        Typed Array"), and Python lists compile to plain JS arrays. Wrap
+        ``args[0]`` and ``array`` -- literal lists or state Vars -- so callers
+        can pass a flat list of floats.
         """
         ...
 

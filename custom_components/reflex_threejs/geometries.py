@@ -12,6 +12,9 @@ ergonomics, but ``args`` always wins if both are given.
 
 from __future__ import annotations
 
+import json
+from typing import Any
+
 from reflex.vars import Var
 
 from .base import ThreeElement
@@ -163,6 +166,35 @@ class BufferAttribute(ThreeElement):
     count: Var[int]
     array: Var[list[float]]
     item_size: Var[int]
+
+    @classmethod
+    def create(cls, *children, **props):
+        """Create the attribute, wrapping its data array in a ``Float32Array``.
+
+        three.js ``BufferAttribute`` throws on plain arrays ("array should be a
+        Typed Array"), and Python lists compile to plain JS arrays. Wrap
+        ``args[0]`` and ``array`` -- literal lists or state Vars -- so callers
+        can pass a flat list of floats.
+        """
+        args = props.get("args")
+        if isinstance(args, (list, tuple)) and args:
+            props["args"] = [_float32_array(args[0]), *args[1:]]
+        if "array" in props:
+            props["array"] = _float32_array(props["array"])
+        return super().create(*children, **props)
+
+
+def _float32_array(value: Any) -> Any:
+    """Return a ``new Float32Array(...)`` Var for a list or list Var; else ``value``."""
+    if isinstance(value, Var):
+        return Var(
+            _js_expr=f"new Float32Array({value!s})",
+            _var_type=list[float],
+            _var_data=value._get_all_var_data(),
+        )
+    if isinstance(value, (list, tuple)):
+        return Var(_js_expr=f"new Float32Array({json.dumps(list(value))})", _var_type=list[float])
+    return value
 
 
 # Factory functions.

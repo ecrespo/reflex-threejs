@@ -97,3 +97,34 @@ def test_scene_composes():
     )
     # Children render under the Canvas.
     assert scene.children
+
+
+def test_buffer_attribute_wraps_literal_args_in_float32array():
+    # three.js BufferAttribute rejects plain arrays ("array should be a Typed
+    # Array"), so a Python list in args[0] must compile to a Float32Array.
+    cmp = three.buffer_attribute(attach="attributes-position", args=[[0.0, 1.0, 2.0], 3])
+    rendered = str(cmp.args)
+    assert "new Float32Array([0.0, 1.0, 2.0])" in rendered.replace(" ,", ",")
+    assert rendered.rstrip("]").endswith("3")
+
+
+def test_buffer_attribute_wraps_array_prop_and_state_vars():
+    from reflex.vars.base import Var
+
+    state_list = Var(_js_expr="positions", _var_type=list[float])
+    cmp = three.buffer_attribute(
+        attach="attributes-position", args=[state_list, 3], array=[0.0, 1.0, 2.0]
+    )
+    assert "new Float32Array(positions)" in str(cmp.args)
+    assert str(cmp.array).startswith("new Float32Array(")
+
+
+def test_drei_float_alias_does_not_shadow_builtin_in_annotations():
+    # `three.drei.float` must stay available without rebinding the builtin in
+    # the module globals, where `float | list[float]` annotations are evaluated
+    # (the .pyi generator crashed on ContactShadows when it did).
+    from reflex_threejs import drei
+
+    assert three.drei.float is drei.float_
+    for annotation in drei.ContactShadows.__dict__["__annotations__"].values():
+        eval(annotation, vars(drei))  # raised TypeError: 'method' | GenericAlias
