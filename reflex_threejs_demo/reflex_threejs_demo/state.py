@@ -41,8 +41,10 @@ class DemoState(rx.State):
 
     @rx.event
     def toggle_auto_rotate(self):
+        """Toggle auto-rotation of the staging scene."""
         self.auto_rotate = not self.auto_rotate
 
     @rx.event
     def toggle_wireframe(self):
+        """Toggle wireframe rendering in the staging scene."""
         self.wireframe = not self.wireframe

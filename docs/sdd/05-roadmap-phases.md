@@ -35,12 +35,17 @@ Phase 0: Spec & Scaffold ──▶ Phase 1: Core + Demo ──▶ Phase 2: Packa
 - Demo app with ≥ 9 example scenes.
 - **Done when:** demo compiles and every scene renders interactively.
 
-## Phase 2 — Packaging & Distribution
+## Phase 2 — Packaging & Distribution 🚧 (in progress)
 **Goal:** make the library installable and discoverable.
-- Build with `reflex component` tooling; `.pyi` stubs for IDEs.
-- Publish `reflex-threejs` to PyPI.
-- Versioned docs site / examples gallery.
-- **Done when:** `pip install reflex-threejs` works; PyPI page live.
+- ✅ Conforms to the Reflex custom-component layout (`custom_components/` package,
+  sibling demo, `reflex-custom-components` keyword).
+- ✅ Build with `reflex component` tooling / `make build`; `.pyi` stubs + `py.typed`
+  generated and shipped in the wheel.
+- ✅ Published `reflex-threejs` 0.1.0 to PyPI
+  (<https://pypi.org/project/reflex-threejs/0.1.0/>); `pip install reflex-threejs`
+  works.
+- ☐ Versioned docs site / examples gallery.
+- **Done when:** `pip install reflex-threejs` works; PyPI page live. ✅
 
 ## Phase 3 — Post-processing & Effects
 **Goal:** cinematic rendering.

@@ -15,7 +15,6 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from . import drei as _drei
-from .canvas import canvas
 from .cameras import (
     axes_helper,
     box_helper,
@@ -27,6 +26,7 @@ from .cameras import (
     perspective_camera,
     polar_grid_helper,
 )
+from .canvas import canvas
 from .geometries import (
     box_geometry,
     buffer_attribute,
