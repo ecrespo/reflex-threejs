@@ -322,9 +322,9 @@ def layout(slug: str, scene: rx.Component) -> rx.Component:
 # ---------------------------------------------------------------------------
 # App + routes
 # ---------------------------------------------------------------------------
-app = rx.App(
-    theme=rx.theme(appearance="dark", accent_color="indigo", radius="large"),
-)
+# The Radix theme is configured through ``RadixThemesPlugin`` in rxconfig.py
+# (``App(theme=...)`` is deprecated since Reflex 0.9).
+app = rx.App()
 
 for _slug, _title, _desc in EXAMPLES:
     def _make_page(slug=_slug):

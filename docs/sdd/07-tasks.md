@@ -52,9 +52,11 @@ Legend: ✅ done · ⏳ in progress · ☐ todo.
   114 parametrized cases covering every catalog row + prop surfaces).
 - F-03 ✅ Demo app imports and registers all 9 scene routes
   (`tests/test_quality_gates.py::test_demo_app_imports_with_nine_routes`). A full
-  `reflex export` additionally needs Node/bun + network to build the frontend.
-- F-04 ✅ GitHub Actions CI: `lint-and-test` (ruff + py_compile + pytest, py3.10–3.12)
-  and a `package` job (`python -m build` + `twine check`).
+  `reflex export` additionally needs Node ≥ 22.22 + network to build the frontend
+  (covered by the CI `demo` job on Node 24).
+- F-04 ✅ GitHub Actions CI: `lint-and-test` (ruff + py_compile + pytest, py3.11–3.13),
+  a `package` job (`python -m build` + `twine check`) and a `demo` job
+  (`reflex export`, Node 24). `publish.yml` releases `vX.Y.Z` tags to PyPI.
 - F-05 ✅ **Published to PyPI** as a Reflex custom component:
   <https://pypi.org/project/reflex-threejs/0.1.0/>. Built with `uv run reflex
   component build` (exit 0, `twine check` passing); ships `.pyi` stubs + `py.typed`.

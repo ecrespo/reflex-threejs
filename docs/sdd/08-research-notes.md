@@ -27,7 +27,8 @@ From the official Reflex docs (`reflex.dev/docs/wrapping-react/*`):
 - **NoSSR:** components that touch `window`/WebGL must subclass
   `NoSSRComponent`; the docs explicitly list **3D graphics** among the cases
   that require dynamic import (`ssr:false`). This drives our `Canvas` design.
-- Custom components are scaffolded/published via the `reflex component` CLI;
+- Custom components were scaffolded/published via the `reflex component` CLI
+  (removed in Reflex 0.10; this repo packages with `python -m build`);
   PyPI packages are conventionally prefixed `reflex-`.
 
 **Implication:** `Canvas` → `NoSSRComponent`; host elements → components with
@@ -65,7 +66,7 @@ From the official Reflex docs (`reflex.dev/docs/wrapping-react/*`):
   `@react-three/drei@^10.7.9` and `three@^0.186.1` (r169 → r186 migration
   notes reviewed; no wrapped API removed).
 
-**Implication:** default to fiber v9 / drei v10 / React 19 (Reflex ≥ 0.7), with
+**Implication:** default to fiber v9 / drei v10 / React 19 (Reflex ≥ 0.10 since v0.3), with
 a documented v8/React-18 fallback.
 
 ## 4. drei

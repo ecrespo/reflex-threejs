@@ -139,7 +139,7 @@ factory function, mirroring Reflex's `rx.*` ergonomics. drei lives under
 
 ### DD-003: Pin to React 19 / R3F v9 by default
 - **Decision:** Default to `@react-three/fiber@^9`, `@react-three/drei@^10`,
-  matching Reflex ≥ 0.7 (React 19).
+  matching Reflex ≥ 0.10 (React 19.3) since v0.3 (Reflex 0.7–0.9 on v0.2.x).
 - **Alternatives:** target React 18 / fiber v8 (older Reflex).
 - **Justification:** newer Reflex ships React 19; aligning avoids peer-dependency
   conflicts.
@@ -202,7 +202,8 @@ custom_components/reflex_threejs/
 
 ## 8. Rollout
 - v0.1 on `main` (this repo): scaffold + core + demo + SDD.
-- v0.2: PyPI publish via `reflex component` tooling; `useFrame` bridge.
+- v0.2: PyPI publish (`python -m build` + stubs via `scripts/gen_pyi.py`); `useFrame` bridge.
+- v0.3: Reflex 0.10 baseline; tag-triggered Trusted Publishing workflow.
 - Backward compatibility: additive props; pinned npm avoids surprise breaks.
 
 ## 9. Open Questions

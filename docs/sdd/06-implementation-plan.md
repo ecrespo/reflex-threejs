@@ -30,8 +30,8 @@ one module per element family, verify by compiling the demo app."
 | Pre-requisite | Owner | Status | Due |
 |---|---|---|---|
 | SDD approved | Maintainer | ✅ Done | 2026-06-14 |
-| Reflex ≥ 0.7 environment | Maintainer | ✅ | 2026-06-14 |
-| Node/npm available to Reflex | Maintainer | ☐ (CI) | — |
+| Reflex ≥ 0.10 environment (Python ≥ 3.11) | Maintainer | ✅ | 2026-10-25 |
+| Node ≥ 22.22 available to Reflex (Node 24 in CI) | Maintainer | ✅ | 2026-10-25 |
 | GitHub repository | Maintainer | ☐ | — |
 
 ## 3. Phases
@@ -88,7 +88,7 @@ one module per element family, verify by compiling the demo app."
 | F4-02 | Unit tests: component spec assertions | 1d | F2-07 | ✅ |
 | F4-03 | Demo imports + registers 9 routes (`reflex export` needs Node) | 0.5d | F3-* | ✅ |
 | F4-04 | GitHub Actions CI (lint+test matrix + package job) | 0.3d | F4-01 | ✅ |
-| F4-05 | `reflex component build` + `twine` publish to PyPI | 0.5d | F4-02 | ✅ |
+| F4-05 | `make build` + tag-triggered Trusted Publishing to PyPI | 0.5d | F4-02 | ✅ |
 
 **Done criteria:** CI green; distribution builds and passes `twine check`;
 **published to PyPI** (<https://pypi.org/project/reflex-threejs/0.1.0/>).
