@@ -18,12 +18,12 @@ test:  ## Run the test suite.
 
 check: lint test  ## Lint and test.
 
-build: stubs  ## Regenerate stubs, then build the wheel + sdist (like `reflex component build`).
+build: stubs  ## Regenerate stubs, then build the wheel + sdist.
 	python -m build
 	python -m twine check dist/*
 
 clean:  ## Remove build artifacts.
 	rm -rf dist build
 
-publish: build  ## Upload the distribution to PyPI (requires credentials).
+publish: build  ## Manual upload to PyPI (releases normally go through the tag-triggered workflow).
 	python -m twine upload dist/*

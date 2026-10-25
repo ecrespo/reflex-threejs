@@ -6,12 +6,24 @@ your Reflex version.
 
 ## Version matrix
 
-| Reflex | React | `@react-three/fiber` | `@react-three/drei` | three |
-|---|---|---|---|---|
-| ≥ 0.7 (default) | 19 | `^9.8.2` | `^10.7.9` | `^0.186.1` |
-| 0.4 – 0.6 | 18 | `^8` | `^9` | `^0.169` |
+| Reflex | React | `@react-three/fiber` | `@react-three/drei` | three | `reflex-threejs` |
+|---|---|---|---|---|---|
+| ≥ 0.10 (default) | 19.3 | `^9.8.2` | `^10.7.9` | `^0.186.1` | 0.3.x |
+| 0.7 – 0.9 | 19 | `^9.8.2` | `^10.7.9` | `^0.186.1` | 0.2.x |
+| 0.4 – 0.6 | 18 | `^8` | `^9` | `^0.169` | 0.2.x + pin override |
 
 The library defaults to the **fiber v9 / drei v10 / React 19** line (top row).
+
+## Runtime requirements (Reflex 0.10)
+
+- **Python ≥ 3.11** — Reflex 0.10 dropped Python 3.10.
+- **Node.js ≥ 22.22** — required by Reflex 0.10 (react-router 8) to build the
+  frontend. CI uses Node 24 LTS.
+- `rx.App(theme=...)` is deprecated since Reflex 0.9; configure the theme with
+  `rx.plugins.RadixThemesPlugin(theme=rx.theme(...))` in `rxconfig.py` (see the
+  demo app).
+- The `reflex component` CLI was removed in Reflex 0.10. That only affects
+  packaging; using `reflex-threejs` in an app is unchanged.
 
 ## Switching to the React 18 line
 

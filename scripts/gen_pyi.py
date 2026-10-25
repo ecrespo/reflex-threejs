@@ -1,7 +1,7 @@
 """Generate ``.pyi`` type stubs for the ``reflex_threejs`` package.
 
-This mirrors what ``reflex component build`` does (it runs the same
-``PyiGenerator``), but scoped to the published package so it does *not* also
+This runs Reflex's own ``PyiGenerator`` (what the old ``reflex component build``
+did before Reflex 0.10 removed it), but scoped to the published package so it does *not* also
 generate stubs for the demo app or the test suite.
 
 Run it before building a release, or whenever a component's props change:

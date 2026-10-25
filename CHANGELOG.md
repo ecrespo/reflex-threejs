@@ -6,6 +6,32 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-25
+
+Moves to Reflex 0.10 (React 19.3). Release on PyPI:
+<https://pypi.org/project/reflex-threejs/0.3.0/>.
+
+### Changed
+- **Breaking:** requires `reflex>=0.10.0` and Python `>=3.11` (Reflex 0.10
+  dropped Python 3.10). Reflex 0.7–0.9 users should stay on 0.2.x.
+- Reflex 0.10 removed the `reflex component` CLI. Stub generation stays on
+  `scripts/gen_pyi.py` (Reflex's `PyiGenerator`) and packaging on
+  `python -m build`; docs no longer reference `reflex component build/share`.
+- Build backend now requires `setuptools>=78.1.1`; license metadata uses the
+  SPDX form (`license = "MIT"` + `license-files`), dropping the deprecated
+  license classifier.
+- Demo: the Radix theme moved from `rx.App(theme=...)` (deprecated since Reflex
+  0.9) to `rx.plugins.RadixThemesPlugin` in `rxconfig.py`; the unused sitemap
+  plugin is disabled; `reflex.lock` regenerated for Reflex 0.10.
+- CI: all actions bumped to their Node 24 releases (`checkout@v7`,
+  `setup-python@v7`, `setup-node@v7`), Python matrix 3.11–3.13, and a new
+  `demo` job that runs `reflex export` with Node 24.
+- Dropped the `tomli` dev dependency (`tomllib` is in the 3.11 stdlib).
+
+### Added
+- `publish.yml` workflow: pushing a `vX.Y.Z` tag on `main` builds, verifies and
+  publishes to PyPI via Trusted Publishing, then creates the GitHub release.
+
 ## [0.2.0] - 2026-10-16
 
 three.js stable baseline moves to r186. Release on PyPI:

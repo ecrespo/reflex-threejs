@@ -39,11 +39,13 @@ Phase 0: Spec & Scaffold ──▶ Phase 1: Core + Demo ──▶ Phase 2: Packa
 **Goal:** make the library installable and discoverable.
 - ✅ Conforms to the Reflex custom-component layout (`custom_components/` package,
   sibling demo, `reflex-custom-components` keyword).
-- ✅ Build with `reflex component` tooling / `make build`; `.pyi` stubs + `py.typed`
+- ✅ Build with `make build` (`scripts/gen_pyi.py` + `python -m build`); `.pyi` stubs + `py.typed`
   generated and shipped in the wheel.
 - ✅ Published `reflex-threejs` 0.1.0 to PyPI
   (<https://pypi.org/project/reflex-threejs/0.1.0/>); `pip install reflex-threejs`
   works.
+- ✅ 0.3.0: Reflex 0.10 / Python ≥ 3.11 baseline; releases are published from
+  `vX.Y.Z` tags on `main` by `.github/workflows/publish.yml` (Trusted Publishing).
 - ☐ Versioned docs site / examples gallery.
 - **Done when:** `pip install reflex-threejs` works; PyPI page live. ✅
 
@@ -76,9 +78,10 @@ Phase 0: Spec & Scaffold ──▶ Phase 1: Core + Demo ──▶ Phase 2: Packa
 |---|---|---|
 | `main` base + working demo | 0–1 | 0.1.0 |
 | PyPI release | 2 | 0.2.0 |
-| Post-processing + animation | 3 | 0.3.0 |
-| Loaders/assets hardened | 4 | 0.4.0 |
-| Physics | 5 | 0.5.0 |
+| Reflex 0.10 baseline + automated PyPI publishing | 2 | 0.3.0 |
+| Post-processing + animation | 3 | 0.4.0 |
+| Loaders/assets hardened | 4 | 0.5.0 |
+| Physics | 5 | 0.6.0 |
 | 1.0 (API stable) | — | 1.0.0 |
 
 ---

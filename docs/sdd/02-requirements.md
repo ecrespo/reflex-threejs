@@ -79,7 +79,7 @@ criteria.
 - Instanced rendering available via `instancedMesh` for large object counts.
 
 ### Compatibility
-- Primary target: Reflex ≥ 0.7 → React 19 → `@react-three/fiber@^9`, `@react-three/drei@^10`.
+- Primary target (v0.3+): Reflex ≥ 0.10 (Python ≥ 3.11, Node ≥ 22.22) → React 19.3 → `@react-three/fiber@^9`, `@react-three/drei@^10`.
 - Fallback documented for Reflex on React 18 → fiber `^8`, drei `^9`.
 - `three >= 0.186` (pinned `^0.186.1`; R3F is renderer-version tolerant, but
   three.js minors can break, so bumps are deliberate).

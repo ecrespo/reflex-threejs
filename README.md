@@ -8,7 +8,7 @@ renderer for [three.js](https://threejs.org)) and its helper library
 3D scenes — product viewers, data visualization, generative art, simulations —
 without writing a line of JavaScript.
 
-> Status: **alpha (v0.2.0)** — foundation, core components, demo app and full
+> Status: **alpha (v0.3.0)** — foundation, core components, demo app and full
 > [SDD](docs/sdd/00-overview.md) artifacts are in place. See the
 > [roadmap](docs/sdd/05-roadmap-phases.md).
 
@@ -63,7 +63,11 @@ app.add_page(index)
 
 ## Installation
 
-> Not yet on PyPI (planned for v0.2). For now, install from source.
+```bash
+pip install reflex-threejs        # or: uv add reflex-threejs
+```
+
+From source:
 
 ```bash
 git clone https://github.com/ecrespo/reflex-threejs.git
@@ -71,8 +75,14 @@ cd reflex-threejs
 pip install -e .
 ```
 
-Requires **Reflex ≥ 0.7** (React 19). On an older Reflex/React 18 stack, see the
-[compatibility guide](docs/guides/compatibility.md).
+Requirements:
+
+- **Python ≥ 3.11**
+- **Reflex ≥ 0.10** (bundles React 19.3)
+- **Node.js ≥ 22.22** for Reflex to build the frontend (Node 24 LTS recommended)
+
+Reflex 0.7–0.9 users can stay on `reflex-threejs` 0.2.x. On an older
+Reflex/React 18 stack, see the [compatibility guide](docs/guides/compatibility.md).
 
 ## Run the demo
 
@@ -147,9 +157,9 @@ reflex-threejs/
 ├── Makefile  pyproject.toml  README.md  LICENSE  CHANGELOG.md
 ```
 
-This is the layout produced by `reflex component init` (package under
-`custom_components/`, a sibling demo app), so it builds and publishes with the
-standard Reflex custom-component tooling.
+This follows the classic Reflex custom-component layout (package under
+`custom_components/`, a sibling demo app). It is a plain setuptools project, so
+it builds with `python -m build` and needs no Reflex-specific packaging CLI.
 
 ## How it works (in one paragraph)
 
@@ -165,31 +175,54 @@ explicit tag. See the [architecture doc](docs/sdd/03-architecture.md) for detail
 
 ## Building & publishing (Reflex custom component)
 
-`reflex-threejs` is a standard [Reflex custom component](https://reflex.dev/docs/custom-components/overview/):
-the package lives under `custom_components/`, ships `.pyi` type stubs and a
-`py.typed` marker, and builds with the usual tooling.
+`reflex-threejs` is a [Reflex custom component](https://reflex.dev/docs/wrapping-react/overview/)
+packaged as a regular Python distribution: the package lives under
+`custom_components/` and ships `.pyi` type stubs and a `py.typed` marker.
+
+> Reflex 0.10 removed the `reflex component` CLI (`init`/`build`/`publish`/
+> `share`). This repo does not depend on it: `scripts/gen_pyi.py` runs Reflex's
+> own `PyiGenerator` for the stubs, and the wheel/sdist come from `python -m build`.
 
 ```bash
 make install        # pip install -e ".[dev]"
 make check          # ruff + pytest
 make stubs          # regenerate .pyi stubs after changing any component props
 make build          # regenerate stubs, then build wheel + sdist, then twine check
-make publish        # upload to PyPI (needs credentials)
 ```
 
-`make build` is the recommended path: it scopes stub generation to the package.
-The official `reflex component build` does the same two steps (stub generation +
-`python -m build`), but it recursively scans *every* top-level directory, so run
-it only from a clean checkout without local virtualenvs in the tree:
+CI (`.github/workflows/ci.yml`, all actions on Node 24) runs on every push and PR
+to `main`/`develop`:
 
-```bash
-reflex component build      # produces dist/ with stubs
-python -m twine upload dist/*   # or: reflex component share
-```
+- `lint-and-test` — ruff, `py_compile` and pytest on Python 3.11–3.13;
+- `package` — regenerates the stubs, fails if the committed ones are stale,
+  builds the wheel + sdist and runs `twine check`;
+- `demo` — installs the demo with Node 24 and runs `reflex export`.
 
-Bump `version` in `pyproject.toml` before publishing. The CI `package` job
-rebuilds the stubs, verifies the committed ones are current, and runs
-`twine check` on every push.
+### Releasing
+
+Releases are published by `.github/workflows/publish.yml` using PyPI
+[Trusted Publishing](https://docs.pypi.org/trusted-publishers/) (no API token in
+the repo):
+
+1. Bump `version` in `pyproject.toml` and add a `CHANGELOG.md` entry on `develop`.
+2. Open a PR `develop` → `main`; merge once CI is green.
+3. Tag the merge commit on `main` and push the tag:
+
+   ```bash
+   git checkout main && git pull
+   git tag -a v0.3.0 -m "reflex-threejs 0.3.0"
+   git push origin v0.3.0
+   ```
+
+The workflow checks that the tag is on `main` and matches the `pyproject.toml`
+version, re-runs lint/tests/stub check, builds, uploads to PyPI (environment
+`pypi`) and creates the GitHub release with the built artifacts.
+
+One-time setup on PyPI → *reflex-threejs* → *Publishing*: add a GitHub trusted
+publisher with owner `ecrespo`, repository `reflex-threejs`, workflow
+`publish.yml` and environment `pypi`.
+
+`make publish` (`twine upload`) remains as a manual fallback.
 
 ## Contributing
 

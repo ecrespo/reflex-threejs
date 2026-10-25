@@ -99,8 +99,8 @@ the three.js example surface declaratively and ship reusable scenes.
 - [x] SDD artifacts and base documentation on `main`.
 
 ### 5.2 Out of scope (v0.1)
-- Post-processing pipeline (`@react-three/postprocessing`) — planned v0.3.
-- Physics (`@react-three/rapier` / cannon) — planned v0.4.
+- Post-processing pipeline (`@react-three/postprocessing`) — planned v0.4.
+- Physics (`@react-three/rapier` / cannon) — planned v0.6.
 - A custom `useFrame` per-frame animation hook surfaced to Python — planned v0.2
   (v0.1 uses drei's animated materials and `autoRotate` for motion).
 - XR / WebXR and WebGPU renderer — backlog.
@@ -127,7 +127,7 @@ See [02-requirements.md](02-requirements.md) for the full list. Summary:
 
 - **Performance:** wrapping adds no runtime overhead beyond R3F; the `Canvas`
   is code-split so 3D bundles load only on pages that use it.
-- **Compatibility:** target Reflex ≥ 0.7 (React 19, R3F v9). Document a
+- **Compatibility:** target Reflex ≥ 0.10 (React 19.3, R3F v9; Python ≥ 3.11) since v0.3; v0.2.x covers Reflex 0.7–0.9. Document a
   React-18 / R3F-v8 fallback.
 - **Maintainability:** one module per element family; pinned npm versions.
 - **Usability:** API mirrors three.js/R3F naming converted to snake_case so the

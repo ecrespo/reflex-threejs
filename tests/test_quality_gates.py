@@ -16,14 +16,10 @@ from __future__ import annotations
 import compileall
 import subprocess
 import sys
+import tomllib
 from pathlib import Path
 
 import pytest
-
-if sys.version_info >= (3, 11):
-    import tomllib
-else:  # Python 3.10: tomllib is 3.11+, tomli is its backport (dev extra).
-    import tomli as tomllib
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PACKAGE_DIR = REPO_ROOT / "custom_components" / "reflex_threejs"
