@@ -17,7 +17,9 @@ Moves to Reflex 0.10 (React 19.3). Release on PyPI:
 - Reflex 0.10 removed the `reflex component` CLI. Stub generation stays on
   `scripts/gen_pyi.py` (Reflex's `PyiGenerator`) and packaging on
   `python -m build`; docs no longer reference `reflex component build/share`.
-- Build backend now requires `setuptools>=78.1.1`.
+- Build backend now requires `setuptools>=78.1.1`; license metadata uses the
+  SPDX form (`license = "MIT"` + `license-files`), dropping the deprecated
+  license classifier.
 - Demo: the Radix theme moved from `rx.App(theme=...)` (deprecated since Reflex
   0.9) to `rx.plugins.RadixThemesPlugin` in `rxconfig.py`; the unused sitemap
   plugin is disabled; `reflex.lock` regenerated for Reflex 0.10.

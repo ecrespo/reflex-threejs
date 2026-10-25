@@ -7,7 +7,8 @@ name = "reflex-threejs"
 version = "0.3.0"
 description = "React Three Fiber and drei (three.js) wrapped as Reflex components."
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.11"
 authors = [{ name = "Ernesto Crespo", email = "ecrespo@gmail.com" }]
 keywords = [
@@ -26,7 +27,6 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "License :: OSI Approved :: MIT License",
     "Topic :: Multimedia :: Graphics :: 3D Rendering",
 ]
 dependencies = ["reflex>=0.10.0"]
